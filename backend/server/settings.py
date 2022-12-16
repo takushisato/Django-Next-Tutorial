@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 import environ
 
@@ -41,12 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_swagger',
+    'djoser',
     'apps.account',
-    'apps.comment',
-    'apps.group',
-    'apps.group_member',
-    'apps.label',
-    'apps.task',
+    'apps.app',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +130,39 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# REST Framework用の設定
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    # 'PAGE_SIZE': 20,
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    # ),
+    # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    # 'DATETIME_FORMAT': '%Y/%m/%d %H:%M',
+}
+
+SIMPLE_JWT = {
+    # トークンをJWTに設定
+    'AUTH_HEADER_TYPES': 'JWT',
+    # リフレッシュトークンが発行される様に設定
+    'ROTATE_REFRESH_TOKENS': True,
+    # トークンの持続時間の設定
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    # 参考
+    # https://github.com/jazzband/djangorestframework-simplejwt/issues/449
+    # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/blacklist_app.html
+    'BLACKLIST_AFTER_ROTATION': False,
+}
+
+# カスタムユーザーモデルの使用を指定
+AUTH_USER_MODEL = 'account.User'
