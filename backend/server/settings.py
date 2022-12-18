@@ -43,11 +43,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'djoser',
+    'corsheaders',
+    # 'pillow',
     'apps.account',
     'apps.app',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -55,6 +58,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'server.urls'
@@ -144,7 +151,7 @@ REST_FRAMEWORK = {
     #     'django_filters.rest_framework.DjangoFilterBackend',
     # ),
     # 'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    # 'DATETIME_FORMAT': '%Y/%m/%d %H:%M',
+    'DATETIME_FORMAT': '%Y/%m/%d %H:%M',
 }
 
 SIMPLE_JWT = {
@@ -165,3 +172,6 @@ SIMPLE_JWT = {
 
 # カスタムユーザーモデルの使用を指定
 AUTH_USER_MODEL = 'account.User'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = str(BASE_DIR / 'media')

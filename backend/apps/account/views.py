@@ -52,7 +52,7 @@ class UserView(APIView):
         try:
             # シリアライザーを通してjson形式でUser情報を返す
             user = request.user
-            user = UserSerializer(user)
+            user = UserSerializer(user, context={'request': request})
 
             return Response(
                 {'user': user.data},
@@ -64,3 +64,7 @@ class UserView(APIView):
                 {'error': 'ユーザー情報取得に問題が発生しました。'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+class UserViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
