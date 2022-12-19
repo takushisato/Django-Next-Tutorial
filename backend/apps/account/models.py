@@ -31,7 +31,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField('メールアドレス', max_length=255, unique=True)
     name = models.CharField('名前', max_length=255)
-    iamge = models.ImageField(upload_to='images', verbose_name='プロフィール画像', default='images/mystery-man.png', null=True, blank=True)
+    image = models.ImageField(upload_to='images', verbose_name='プロフィール画像', default='images/mystery-man.png', null=True, blank=True)
     updated_at = models.DateTimeField('更新日', auto_now=True)
     created_at = models.DateTimeField('作成日', auto_now_add=True)
 
