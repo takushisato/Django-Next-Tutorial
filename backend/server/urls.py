@@ -9,7 +9,7 @@ urlpatterns = [
     path('api/refresh/', TokenRefreshView.as_view()),
     path('api/verify/', TokenVerifyView.as_view()),
     path('api/auth/', include('apps.account.urls')),
-    path('api', include('apps.app.urls')),
+    path('api/', include('apps.app.urls')),
     path('admin/', admin.site.urls),
 ]
 
