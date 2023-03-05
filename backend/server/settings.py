@@ -162,7 +162,6 @@ SIMPLE_JWT = {
     # トークンの持続時間の設定
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=90),
-    'AUTH_HEADER_TYPES': ('Bearer',),
     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
     # 参考
     # https://github.com/jazzband/djangorestframework-simplejwt/issues/449
